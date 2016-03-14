@@ -144,6 +144,7 @@
 
 % *** UTF-8 Characters ***
 \usepackage[utf8]{inputenc}
+\usepackage{amsmath}
 
 % correct bad hyphenation here
 \hyphenation{}
@@ -151,18 +152,19 @@
 
 \begin{document}
 
+\newtheorem{definition}{Definition}
 
-\title{A Summary of Rice's Theorem and It's Implications}
+\title{Satz von Rice: Grundlagen, Beweis und Implikationen}
 
 
-\author{René~Filip\thanks{DHBW Karlsruhe, Theoretical computation class 2016}}
+\author{René~Filip$^{\dag}$\thanks{$^{\dag}$DHBW Karlsruhe, TINF13B1, Seminar Theoretische Informatik 2016}}
 
 
 \maketitle
 
 
 \begin{abstract}
-Summary, what rice's theorem is, proof of the theorem, it's implications
+Der Satz von Rice hat in der Informatik weitreichende Konsequenzen, denn er sagt aus, dass es kein allgemeines Computerprogramm gibt, das überprüft, ob der eigene Code eine gewünschte Funktion berechnet oder nicht. Nachdem wir die Grundlagen und Definitionen geklärt haben, beweisen wir den Satz mittels ``Many-to-One" Reduktion auf ein einfacheres Problem, für das sich ein direkter Beweis finden lässt. Am Ende gehen wir nochmal kurz auf dessen Implikationen und Bedeutung ein.
 \end{abstract}
 
 
@@ -180,100 +182,72 @@ Rice's Theorem, Theoretical computation, computability, decidability, Post corre
 %% Gödel Number
 %% Computability
 %% Decidability
-\blindtext{}
 
-\subsection{Subsection Heading Here}
-\blindtext{}
+\subsection{Definitions and Notation}
 
-% needed in second column of first page if using \IEEEpubid
-%\IEEEpubidadjcol
+\begin{definition}[Turingmaschine]
+  Eine Turingmaschine (TM) ist definiert durch ein Septuple $(Q, \Gamma, B, \Sigma, \delta, q_0, F)$:
+  \begin{enumerate}
+    \item endliche Zustandsmenge $Q$
+    \item endliche Bandalphabet $\Gamma$
+    \item Leerzeichen $B \in \Gamma$
+    \item endliche Eingabealphabet $\Sigma \subseteq \Gamma \setminus B$
+    \item Zustandsübergangsfunktion $\delta \colon Q \times \Gamma \to Q \times \Gamma \times (L, R, N)$
+    \item Anfangszustand $q_0 \in Q$
+    \item Menge der akzeptierenden Endzustände $F \subseteq Q$
+  \end{enumerate}
+\end{definition}
 
-% An example of a floating figure using the graphicx package.
-% Note that \label must occur AFTER (or within) \caption.
-% For figures, \caption should occur after the \includegraphics.
-% Note that IEEEtran v1.7 and later has special internal code that
-% is designed to preserve the operation of \label within \caption
-% even when the captionsoff option is in effect. However, because
-% of issues like this, it may be the safest practice to put all your
-% \label just after \caption rather than within \caption{}.
-%
-% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
-% option should be used if it is desired that the figures are to be
-% displayed while in draft mode.
-%
-%\begin{figure}[!t]
-%\centering
-%\includegraphics[width=2.5in]{myfigure}
-% where an .eps filename suffix will be assumed under latex,
-% and a .pdf suffix will be assumed for pdflatex; or what has been declared
-% via \DeclareGraphicsExtensions.
-%\caption{Simulation Results}
-%\label{fig_sim}
-%\end{figure}
+% \begin{definition}[Turing machine]
+%   A Turing machine (TM) is defined by a septuple $(Q, \Gamma, B, \Sigma, \delta, q_0, F)$ where
+%   \begin{enumerate}
+%     \item{$Q$ is a set of all states}
+%     \item{$\Gamma$ describes a set of tape alphabet symbols}
+%     \item{$B \in \Gamma$ is the blank symbol}
+%     \item{$\Sigma \subseteq \Gamma \setminus B$ is defined as the set of input symbols}
+%     \item{$\delta \colon Q \times \Gamma \to Q \times \Gamma \times (L, R, N)$ is the transition function (given by a table or graph)}
+%     \item{$q_0 \in Q$ is the initial state}
+%     \item{$F \subseteq Q$ is the set of accepting states}
+%   \end{enumerate}
+%   $Q$ and $\Gamma$ are finite and non-empty. $\Sigma$ is finite. $L$, $R$ and $N$ denotes left-shift, right-shift or no-shift respectively.
+% \end{definition}
 
-% Note that IEEE typically puts floats only at the top, even when this
-% results in a large percentage of a column being occupied by floats.
+Although we can show that a Turing machine can simulate any computer program~\cite{Wegener2013:2.3}, their ``programs'' (i.e.~their transition functions $\delta$) are static. Thus, these Turing machines are only ``special purpose computers''. Instead, we would rather like to work with ``general purpose computer''. By creating an universal Turing machine, which takes as input a computer program $\langle M \rangle$ \textit{and} a word $w \in \{0, 1\}^*$ to accept, we can solve our problem. In specific, $\langle M \rangle$ will be a Gödel number defined as followed:
 
+\begin{definition}[Gödel Number]
+  Let there be a Turing machine $M = (\{q_1, \dotsc, q_t\}, \{0, 1, B\}, B, \{0, 1\}, \delta, q_1, \{q_2\})$. Furthermore, let $X_1 = 0$, $X_2 = 1$, $X_3 = B$, $D_1 = L$, $D_2 = N$, $D_3 = R$. We can describe the the $z$-th row of $\delta$'s transition table of length $s$ as following:
+  \begin{equation*}
+    \delta(q_i, X_j) = (q_k, X_l, D_m) \Longrightarrow \operatorname{code}(z) = 0^i 10^j 10^k 10^l 10^m
+  \end{equation*}
+  where $i, k \ge 1$ and $j, l, m \in \{1, 2, 3\}$. Now, the Gödel Number $\langle M \rangle$ of the Turing machine $M$ is given by
+  \begin{equation*}
+    111 \operatorname{code}(1) 11 \operatorname{code}(2) 11 \dotsc 11 \operatorname{code}(s) 111
+  \end{equation*}
+\end{definition}
 
-% An example of a double column floating figure using two subfigures.
-% (The subfig.sty package must be loaded for this to work.)
-% The subfigure \label commands are set within each subfloat command, the
-% \label for the overall figure must come after \caption.
-% \hfil must be used as a separator to get equal spacing.
-% The subfigure.sty package works much the same way, except \subfigure is
-% used instead of \subfloat.
-%
-%\begin{figure*}[!t]
-%\centerline{\subfloat[Case I]\includegraphics[width=2.5in]{subfigcase1}%
-%\label{fig_first_case}}
-%\hfil
-%\subfloat[Case II]{\includegraphics[width=2.5in]{subfigcase2}%
-%\label{fig_second_case}}}
-%\caption{Simulation results}
-%\label{fig_sim}
-%\end{figure*}
-%
-% Note that often IEEE papers with subfigures do not employ subfigure
-% captions (using the optional argument to \subfloat), but instead will
-% reference/describe all of them (a), (b), etc., within the main caption.
+We can easily see that a program starts and ends with the string $111$ and each ``line'' of code is separated by the string $11$.
+\cite{Wegener2013:2.4} describes the functionality and properties of this Turing machine more in detail.
 
+\subsection{Principles}
 
-% An example of a floating table. Note that, for IEEE style tables, the
-% \caption command should come BEFORE the table. Table text will default to
-% \footnotesize as IEEE normally uses this smaller font for tables.
-% The \label must come after \caption as always.
-%
-%\begin{table}[!t]
-%% increase table row spacing, adjust to taste
-%\renewcommand{\arraystretch}{1.3}
-% if using array.sty, it might be a good idea to tweak the value of
-% \extrarowheight as needed to properly center the text within the cells
-%\caption{An Example of a Table}
-%\label{table_example}
-%\centering
-%% Some packages, such as MDW tools, offer better commands for making tables
-%% than the plain LaTeX2e tabular which is used here.
-%\begin{tabular}{|c||c|}
-%\hline
-%One & Two\\
-%\hline
-%Three & Four\\
-%\hline
-%\end{tabular}
-%\end{table}
+First, we define what computability and decidability is in perspective of theoretical computation. Then, we summarize what we have learned from previous presentations and outline the most important aspects from them.
 
+\begin{definition}[Computability]
+  A function $f\colon \Sigma^* \to \Gamma^*$ is called \textit{computable} if there is a Turing machine $M$ that takes $w \in \Sigma^*$ as input and calculates $f(w) \in \Gamma^*$ as output.~\cite{Wegener2013:2.1.1}
+\end{definition}
 
-% Note that IEEE does not put floats in the very first column - or typically
-% anywhere on the first page for that matter. Also, in-text middle ("here")
-% positioning is not used. Most IEEE journals use top floats exclusively.
-% Note that, LaTeX2e, unlike IEEE journals, places footnotes above bottom
-% floats. This can be corrected via the \fnbelowfloat command of the
-% stfloats package.
+%$M$ can only calculate $f(w)$ if it
 
+\begin{definition}[Decidability]
+  A language $L \subseteq \Sigma^*$ is called \textit{decidable} if there is a total Turing machine that accepts input $w$ iff $w \in L$.~\cite{Wegener2013:2.1.2}
+\end{definition}
 
+A total Turing machine (also known as decider) halts (i.e.~it's state becomes a final state) for every input it receives. That way, it always determines if a word $w$ is part of the language $L$ or not.
 
-\section{Conclusion}
-\blindtext{}
+Note that decidability refers to languages and computability refers to functions. Although they sound equal, they are used in different contexts
+
+Difference
+
 
 
 
@@ -330,9 +304,14 @@ The authors would like to thank\ldots
 % http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
 % The IEEEtran BibTeX style support page is at:
 % http://www.michaelshell.org/tex/ieeetran/bibtex/
-%\bibliographystyle{IEEEtran}
+% \bibliographystyle{IEEEtran}
 % argument is your BibTeX string definitions and bibliography database(s)
-\bibliography{IEEEabrv,ricesTheorem}
+%
+
+\bibliographystyle{IEEEtran}
+\bibliography{./references}
+
+
 
 
 % that's all folks
