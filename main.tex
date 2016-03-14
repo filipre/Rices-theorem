@@ -145,6 +145,7 @@
 % *** UTF-8 Characters ***
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage{amsthm}
 
 % correct bad hyphenation here
 \hyphenation{}
@@ -153,8 +154,10 @@
 \begin{document}
 
 \newtheorem{definition}{Definition}
-\newtheorem{theorem}{Satz}
-\newtheorem{corollar}{Korollar}
+\newtheorem{theorem}[definition]{Satz}
+\newtheorem{corollar}[definition]{Korollar}
+
+\renewcommand{\proofname}{Beweis}
 
 \title{Satz von Rice: Grundlagen, Beweis und Implikationen}
 
@@ -166,7 +169,7 @@
 
 
 \begin{abstract}
-Der Satz von Rice hat in der Informatik weitreichende Konsequenzen, denn er sagt aus, dass es kein allgemeines Computerprogramm gibt, das überprüft, ob der eigene Code eine gewünschte Funktion berechnet oder nicht. Nachdem wir die Grundlagen und Definitionen geklärt haben, beweisen wir den Satz mittels ``Many-to-One" Reduktion auf ein einfacheres Problem, für das sich ein direkter Beweis finden lässt. Am Ende gehen wir nochmal kurz auf dessen Implikationen und Bedeutung ein.
+Der Satz von Rice hat in der Informatik weitreichende Konsequenzen, denn er sagt aus, dass es kein allgemeines Computerprogramm gibt, das überprüft, ob der eigene Code eine gewünschte Funktion berechnet oder nicht. Nachdem wir die Grundlagen und Definitionen geklärt haben, beweisen wir den Satz mittels ``Many-to-One" Reduktion auf ein einfacheres Problem, für das sich ein direkter Beweis finden lässt.
 \end{abstract}
 
 
@@ -176,107 +179,110 @@ Der Satz von Rice hat in der Informatik weitreichende Konsequenzen, denn er sagt
 
 
 
-\section{Introduction}
+\section{Einführung}
 
-% Why Rice's Theorem is important or what it implies, open question before that
+  % Motivation
+  % Was ist der Satz von Rice
+  % Welche Folgen hat es?
 
-% Short refresher:
-%% Gödel Number
-%% Computability
-%% Decidability
+\section{Grundlagen und Definitionen}
 
-\subsection{Definitions and Notation}
+  \begin{definition}[Turingmaschine]
+    Eine Turingmaschine (TM) ist definiert durch ein Septuple $(Q, \Gamma, B, \Sigma, \delta, q_0, F)$:
+    \begin{enumerate}
+      \item endliche Zustandsmenge $Q$
+      \item endliche Bandalphabet $\Gamma$
+      \item Leerzeichen $B \in \Gamma$
+      \item endliche Eingabealphabet $\Sigma \subseteq \Gamma \setminus B$
+      \item Zustandsübergangsfunktion \\$\delta \colon Q \times \Gamma \to Q \times \Gamma \times (L, R, N)$
+      \item Anfangszustand $q_0 \in Q$
+      \item Menge der akzeptierenden Endzustände $F \subseteq Q$
+    \end{enumerate}
+  \end{definition}
 
-\begin{definition}[Turingmaschine]
-  Eine Turingmaschine (TM) ist definiert durch ein Septuple $(Q, \Gamma, B, \Sigma, \delta, q_0, F)$:
-  \begin{enumerate}
-    \item endliche Zustandsmenge $Q$
-    \item endliche Bandalphabet $\Gamma$
-    \item Leerzeichen $B \in \Gamma$
-    \item endliche Eingabealphabet $\Sigma \subseteq \Gamma \setminus B$
-    \item Zustandsübergangsfunktion $\delta \colon Q \times \Gamma \to Q \times \Gamma \times (L, R, N)$
-    \item Anfangszustand $q_0 \in Q$
-    \item Menge der akzeptierenden Endzustände $F \subseteq Q$
-  \end{enumerate}
-\end{definition}
+  Zwar kann eine Turingmaschine jedes Computerprogramm simulieren~\cite{Wegener2013:2.3}, doch kann man den Programmcode (sprich die Übergangsfunktion $\delta$) nicht ändern. Ein Computer nach der Von-Neumann-Architektur (VNA) lässt sich stattdessen programmieren. Um den Satz von Rice und dessen Beweis sauber zu formulieren, müssen wir zunächst eine ``universelle Turingmaschine" definieren:
 
-% \begin{definition}[Turing machine]
-%   A Turing machine (TM) is defined by a septuple $(Q, \Gamma, B, \Sigma, \delta, q_0, F)$ where
-%   \begin{enumerate}
-%     \item{$Q$ is a set of all states}
-%     \item{$\Gamma$ describes a set of tape alphabet symbols}
-%     \item{$B \in \Gamma$ is the blank symbol}
-%     \item{$\Sigma \subseteq \Gamma \setminus B$ is defined as the set of input symbols}
-%     \item{$\delta \colon Q \times \Gamma \to Q \times \Gamma \times (L, R, N)$ is the transition function (given by a table or graph)}
-%     \item{$q_0 \in Q$ is the initial state}
-%     \item{$F \subseteq Q$ is the set of accepting states}
-%   \end{enumerate}
-%   $Q$ and $\Gamma$ are finite and non-empty. $\Sigma$ is finite. $L$, $R$ and $N$ denotes left-shift, right-shift or no-shift respectively.
-% \end{definition}
+  \begin{definition}[Universelle Turingmaschine]
+    ...
+  \end{definition}
 
+  Die Universelle Turingmaschine nimmt nun als Eingabe nicht nur ein Wort $w \in \{0, 1\}^*$, sondern auch ein Computerprogramm bzw. Gödelnummer $\langle M \rangle$. Die Gödelnummer ist eine Repräsentationsart einer Turingmaschine und ist wie folgt definiert:
 
-Although we can show that a Turing machine can simulate any computer program~\cite{Wegener2013:2.3}, their ``programs'' (i.e.~their transition functions $\delta$) are static. Thus, these Turing machines are only ``special purpose computers''. Instead, we would rather like to work with ``general purpose computer''. By creating an universal Turing machine, which takes as input a computer program $\langle M \rangle$ \textit{and} a word $w \in \{0, 1\}^*$ to accept, we can solve our problem. In specific, $\langle M \rangle$ will be a Gödel number defined as followed:
+  \begin{definition}[Gödelnummer]
+    Sei $M$ eine Turingmaschine $(\{q_1, \dotsc, q_t\}, \{0, 1, B\}, B, \{0, 1\}, \delta, q_1, \{q_2\})$. Außerdem sei $X_1 = 0$, $X_2 = 1$, $X_3 = B$, $D_1 = L$, $D_2 = N$ und $D_3 = R$. Nun kann die $z$-te Zeile der Übergangsfunktions-Tabelle $\delta$ der Länge $s$ wie folgt beschrieben werden:
+    \begin{equation*}
+      \delta(q_i, X_j) = (q_k, X_l, D_m) \Longrightarrow \operatorname{code}(z) := 0^i 10^j 10^k 10^l 10^m
+    \end{equation*}
+    wobei $i, k \ge 1$ und $j, l, m \in \{1, 2, 3\}$. Die Gödelnummer $\langle M \rangle$ der Turingmaschine $M$ ist nun definiert als
+    \begin{equation*}
+      \langle M \rangle := 111 \operatorname{code}(1) 11 \operatorname{code}(2) 11 \dotsc 11 \operatorname{code}(s) 111
+    \end{equation*}
+  \end{definition}
 
-\begin{definition}[Gödelnummer]
-  Sei $M = (\{q_1, \dotsc, q_t\}, \{0, 1, B\}, B, \{0, 1\}, \delta, q_1, \{q_2\})$ eine Turingmaschine. Außerdem sei $X_1 = 0$, $X_2 = 1$, $X_3 = B$, $D_1 = L$, $D_2 = N$ und $D_3 = R$. Nun kann die $z$-te Zeile der Übergangsfunktions-Tabelle $\delta$ der Länge $s$ wie folgt beschrieben werden:
-  \begin{equation*}
-    \delta(q_i, X_j) = (q_k, X_l, D_m) \Longrightarrow \operatorname{code}(z) = 0^i 10^j 10^k 10^l 10^m
-  \end{equation*}
-  wobei $i, k \ge 1$ und $j, l, m \in \{1, 2, 3\}$. Die Gödelnummer $\langle M \rangle$ der Turingmaschine $M$ ist nun definiert als
-  \begin{equation*}
-    \langle M \rangle := 111 \operatorname{code}(1) 11 \operatorname{code}(2) 11 \dotsc 11 \operatorname{code}(s) 111
-  \end{equation*}
-\end{definition}
+  Wir können leicht sehen, dass jedes Programm mit $111$ anfängt und endet. Jede ``Programmcode-Zeile" wird durch $11$ separiert. $\operatorname{code}(z)$ enthält niemals den Teilstring $11$. \cite{Wegener2013:2.4} beschreibt die Gödelnummer näher.
 
-Wir können leicht sehen, dass jedes Programm mit $111$ anfängt und endet. Jede ``Programmcode-Zeile" wird durch $11$ separiert. $\operatorname{code}(z)$ enthält niemals $11$. \cite{Wegener2013:2.4} beschreibt die Gödelnummer näher.
+  \begin{definition}[Entscheidbarkeit]
+    Eine Sprache $L$ heißt rekursiv (oder entscheidbar), wenn es eine Turingmaschine gibt, die auf allen Eingaben stoppt und die Eingabe $w$ genau dann akzeptiert, wenn $w \in L$ ist.~\cite{Wegener2013:2.1.2}
+  \end{definition}
 
-\begin{definition}[Entscheidbarkeit]
-  Eine Sprache $L$ heißt rekursiv (entscheidbar), wenn es eine Turingmaschine gibt, die auf allen Eingaben stoppt und die Eingabe $w$ genau dann akzeptiert, wenn $w \in L$ ist.~\cite{Wegener2013:2.1.2}
-\end{definition}
+  Eine Turingmaschine, die für jede Eingabe anhält, nennt man auch Entscheider.
 
-Eine Turingmaschine, die für jede Eingabe anhält, nennt man auch Entscheider.
+\section{Satz von Rice}
 
-\begin{theorem}
-  $D$ ist nicht rekursiv.
-\end{theorem}
-\begin{proof}
+  %Satz
+  %Was es sagt, Konsequenzen, Erläuterungen
+
   ...
-\end{proof}
 
-\begin{corollar}
-  $\overline{D}$ ist nicht rekursiv.
-\end{corollar}
-\begin{proof}
+  \begin{theorem}[Satz von Rice]\label{satz_von_rice}
+    Sei $\mathcal{R}$ die Menge der von Turingmaschinen berechenbaren Funktionen und S eine Teilmenge von $S$  mit $S \ne \emptyset$ und $S \ne \mathcal{R}$, das heißt $S$ ist eine nicht triviale Teilmenge aller berechenbaren Funktionen. Dann ist die Sprache
+    \begin{equation*}
+      L(S) := \{\langle M \rangle \ \vert \ M \ \text{berechnet eine Funktion aus} \ S\}
+    \end{equation*}
+    nicht rekursiv.
+  \end{theorem}
+
+  Für den Beweis von \ref{satz_von_rice} siehe \ref{proof_rice}.
+
   ...
-\end{proof}
 
-\begin{theorem}
-  $H$ ist nicht rekursiv.
-\end{theorem}
-\begin{proof}
-  ...
-\end{proof}
+  \subsection{Beweisstrategie}
 
-\begin{theorem}
-  $H_\varepsilon$ ist nicht rekursiv.
-\end{theorem}
-\begin{proof}
-  ...
-\end{proof}
+  \subsection{Aufbauende Sätze}
 
-\begin{theorem}[Satz von Rice]
-  Sei $\mathcal{R}$ die Menge der von Turingmaschinen berechenbaren Funktionen und S eine Teilmenge von $S$  mit $S \ne \emptyset$ und $S \ne \mathcal{R}$, das heißt $S$ ist eine nicht triviale Teilmenge aller berechenbaren Funktionen. Dann ist die Sprache
-  \begin{equation*}
-    L(S) := \{\langle M \rangle \ \vert \ M \ \text{berechnet eine Funktion aus} \ S\}
-  \end{equation*}
-  nicht rekursiv.
-\end{theorem}
-\begin{proof}
-  ...
-\end{proof}
+    \begin{theorem}
+      $D$ ist nicht rekursiv.
+    \end{theorem}
+    \begin{proof}
+      ...
+    \end{proof}
 
+    \begin{corollar}
+      $\overline{D}$ ist nicht rekursiv.
+    \end{corollar}
+    \begin{proof}
+      ...
+    \end{proof}
 
+    \begin{theorem}
+      $H$ ist nicht rekursiv.
+    \end{theorem}
+    \begin{proof}
+      ...
+    \end{proof}
 
+    \begin{theorem}
+      $H_\varepsilon$ ist nicht rekursiv.
+    \end{theorem}
+    \begin{proof}
+      ...
+    \end{proof}
+
+  \subsection{Beweis des Satzes von Rice}\label{proof_rice}
+
+    \begin{proof}
+      ...
+    \end{proof}
 
 
 % if have a single appendix:
@@ -294,11 +300,11 @@ Eine Turingmaschine, die für jede Eingabe anhält, nennt man auch Entscheider.
 %
 
 
-\appendices{}
-\section{Proof of the First Zonklar Equation}
+% \appendices{}
+% \section{Proof of the First Zonklar Equation}
 % use section* for acknowledgement
-\section*{Acknowledgment}
-The authors would like to thank\ldots
+% \section*{Acknowledgment}
+% The authors would like to thank\ldots
 
 
 % Can use something like this to put references on a page
