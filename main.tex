@@ -153,6 +153,8 @@
 \begin{document}
 
 \newtheorem{definition}{Definition}
+\newtheorem{theorem}{Satz}
+\newtheorem{corollar}{Korollar}
 
 \title{Satz von Rice: Grundlagen, Beweis und Implikationen}
 
@@ -169,7 +171,7 @@ Der Satz von Rice hat in der Informatik weitreichende Konsequenzen, denn er sagt
 
 
 \begin{IEEEkeywords}
-Rice's Theorem, Theoretical computation, computability, decidability, Post correspondence problem, Halting problem.
+  Satz von Rice, Theoretische Informatik, Entscheidbarkeit, Halteproblem.
 \end{IEEEkeywords}
 
 
@@ -212,42 +214,66 @@ Rice's Theorem, Theoretical computation, computability, decidability, Post corre
 %   $Q$ and $\Gamma$ are finite and non-empty. $\Sigma$ is finite. $L$, $R$ and $N$ denotes left-shift, right-shift or no-shift respectively.
 % \end{definition}
 
+
 Although we can show that a Turing machine can simulate any computer program~\cite{Wegener2013:2.3}, their ``programs'' (i.e.~their transition functions $\delta$) are static. Thus, these Turing machines are only ``special purpose computers''. Instead, we would rather like to work with ``general purpose computer''. By creating an universal Turing machine, which takes as input a computer program $\langle M \rangle$ \textit{and} a word $w \in \{0, 1\}^*$ to accept, we can solve our problem. In specific, $\langle M \rangle$ will be a Gödel number defined as followed:
 
-\begin{definition}[Gödel Number]
-  Let there be a Turing machine $M = (\{q_1, \dotsc, q_t\}, \{0, 1, B\}, B, \{0, 1\}, \delta, q_1, \{q_2\})$. Furthermore, let $X_1 = 0$, $X_2 = 1$, $X_3 = B$, $D_1 = L$, $D_2 = N$, $D_3 = R$. We can describe the the $z$-th row of $\delta$'s transition table of length $s$ as following:
+\begin{definition}[Gödelnummer]
+  Sei $M = (\{q_1, \dotsc, q_t\}, \{0, 1, B\}, B, \{0, 1\}, \delta, q_1, \{q_2\})$ eine Turingmaschine. Außerdem sei $X_1 = 0$, $X_2 = 1$, $X_3 = B$, $D_1 = L$, $D_2 = N$ und $D_3 = R$. Nun kann die $z$-te Zeile der Übergangsfunktions-Tabelle $\delta$ der Länge $s$ wie folgt beschrieben werden:
   \begin{equation*}
     \delta(q_i, X_j) = (q_k, X_l, D_m) \Longrightarrow \operatorname{code}(z) = 0^i 10^j 10^k 10^l 10^m
   \end{equation*}
-  where $i, k \ge 1$ and $j, l, m \in \{1, 2, 3\}$. Now, the Gödel Number $\langle M \rangle$ of the Turing machine $M$ is given by
+  wobei $i, k \ge 1$ und $j, l, m \in \{1, 2, 3\}$. Die Gödelnummer $\langle M \rangle$ der Turingmaschine $M$ ist nun definiert als
   \begin{equation*}
-    111 \operatorname{code}(1) 11 \operatorname{code}(2) 11 \dotsc 11 \operatorname{code}(s) 111
+    \langle M \rangle := 111 \operatorname{code}(1) 11 \operatorname{code}(2) 11 \dotsc 11 \operatorname{code}(s) 111
   \end{equation*}
 \end{definition}
 
-We can easily see that a program starts and ends with the string $111$ and each ``line'' of code is separated by the string $11$.
-\cite{Wegener2013:2.4} describes the functionality and properties of this Turing machine more in detail.
+Wir können leicht sehen, dass jedes Programm mit $111$ anfängt und endet. Jede ``Programmcode-Zeile" wird durch $11$ separiert. $\operatorname{code}(z)$ enthält niemals $11$. \cite{Wegener2013:2.4} beschreibt die Gödelnummer näher.
 
-\subsection{Principles}
-
-First, we define what computability and decidability is in perspective of theoretical computation. Then, we summarize what we have learned from previous presentations and outline the most important aspects from them.
-
-\begin{definition}[Computability]
-  A function $f\colon \Sigma^* \to \Gamma^*$ is called \textit{computable} if there is a Turing machine $M$ that takes $w \in \Sigma^*$ as input and calculates $f(w) \in \Gamma^*$ as output.~\cite{Wegener2013:2.1.1}
+\begin{definition}[Entscheidbarkeit]
+  Eine Sprache $L$ heißt rekursiv (entscheidbar), wenn es eine Turingmaschine gibt, die auf allen Eingaben stoppt und die Eingabe $w$ genau dann akzeptiert, wenn $w \in L$ ist.~\cite{Wegener2013:2.1.2}
 \end{definition}
 
-%$M$ can only calculate $f(w)$ if it
+Eine Turingmaschine, die für jede Eingabe anhält, nennt man auch Entscheider.
 
-\begin{definition}[Decidability]
-  A language $L \subseteq \Sigma^*$ is called \textit{decidable} if there is a total Turing machine that accepts input $w$ iff $w \in L$.~\cite{Wegener2013:2.1.2}
-\end{definition}
+\begin{theorem}
+  $D$ ist nicht rekursiv.
+\end{theorem}
+\begin{proof}
+  ...
+\end{proof}
 
-A total Turing machine (also known as decider) halts (i.e.~it's state becomes a final state) for every input it receives. That way, it always determines if a word $w$ is part of the language $L$ or not.
+\begin{corollar}
+  $\overline{D}$ ist nicht rekursiv.
+\end{corollar}
+\begin{proof}
+  ...
+\end{proof}
 
-Note that decidability refers to languages and computability refers to functions. Although they sound equal, they are used in different contexts
+\begin{theorem}
+  $H$ ist nicht rekursiv.
+\end{theorem}
+\begin{proof}
+  ...
+\end{proof}
 
-Difference
+\begin{theorem}
+  $H_\varepsilon$ ist nicht rekursiv.
+\end{theorem}
+\begin{proof}
+  ...
+\end{proof}
 
+\begin{theorem}[Satz von Rice]
+  Sei $\mathcal{R}$ die Menge der von Turingmaschinen berechenbaren Funktionen und S eine Teilmenge von $S$  mit $S \ne \emptyset$ und $S \ne \mathcal{R}$, das heißt $S$ ist eine nicht triviale Teilmenge aller berechenbaren Funktionen. Dann ist die Sprache
+  \begin{equation*}
+    L(S) := \{\langle M \rangle \ \vert \ M \ \text{berechnet eine Funktion aus} \ S\}
+  \end{equation*}
+  nicht rekursiv.
+\end{theorem}
+\begin{proof}
+  ...
+\end{proof}
 
 
 
@@ -270,14 +296,8 @@ Difference
 
 \appendices{}
 \section{Proof of the First Zonklar Equation}
-Some text for the appendix.
-
 % use section* for acknowledgement
 \section*{Acknowledgment}
-
-The author would like to thank Martin Holzer for reviewing the related presentation as well as this document.
-
-
 The authors would like to thank\ldots
 
 
