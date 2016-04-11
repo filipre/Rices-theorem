@@ -163,7 +163,7 @@
 
 \renewcommand{\proofname}{Beweis}
 
-\title{Satz von Rice: Grundlagen, Beweis und Implikationen}
+\title{Satz von Rice: Beweis und Konsequenzen}
 
 
 \author{René~Filip$^{\dag}$\thanks{$^{\dag}$DHBW Karlsruhe, TINF13B1, Seminar Theoretische Informatik 2016}}
@@ -252,12 +252,12 @@ Wir können aus einem Halteproblem $(P, E)$ nun das Programm $P' = f(P, E)$ kons
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 \renewcommand{\algorithmicensure}{\textbf{Output:}}
 \REQUIRE Eingabe $x$
-\STATE Schritt-Simulator($P$, $E$, $\operatorname{Länge}(x)$)
+\STATE Schritt-Simulator($P$, $E$, $\operatorname{L\ddot{a}nge}(x)$)
 \RETURN 1
 \end{algorithmic}
 \end{algorithm}
 
-Zunächst rufen wir den Schritt-Simulator($P$, $E$, $n$) auf und machen die Anzahl der Schritte $n$ abhängig von der Eingabe $x = \operatorname{Länge}(x)$. Bei einer längeren Eingabe sind dann auch die Anzahl an Schritte größer. Falls der Schritt-Simulator terminiert, geben wir $1$ zurück.
+Zunächst rufen wir den Schritt-Simulator($P$, $E$, $n$) auf und machen die Anzahl der Schritte $n$ abhängig von der Eingabe $x = \operatorname{L\ddot{a}nge}(x)$. Bei einer längeren Eingabe sind dann auch die Anzahl an Schritte größer. Falls der Schritt-Simulator terminiert, geben wir $1$ zurück.
 
 Das Verhalten von $P'$ können wir nun leicht beschreiben:
 
@@ -325,7 +325,7 @@ $S$ darf auch mehrere Funktionen aus $\mathcal{R}$ beinhalten. Dadurch können w
 Aus $S$ konstruieren wir die Sprache $L_\text{Java}(S)$. Diese beinhaltet jeden Javacode, dessen Programm irgendeine Funktion aus $S$ berechnet. Im Beispiel \ref{example1} enthält $L_\text{Java}(S)$ jeden möglichen Javacode, der $x^2$ berechnet.
 
 \begin{theorem}[Satz von Rice]
-\label{satzvonrice}
+\label{satzvonricetheorem}
   Die Sprache $L_\text{Java}(S)$ ist nicht entscheidbar.
 \end{theorem}
 
@@ -333,7 +333,7 @@ Der Satz ist äquivalent für andere Programmiersprachen.
 
 Für kein mögliches $S$ ist also $L_\text{Java}(S)$ entscheidbar. Damit erschlägt der Satz von Rice viele Sprachen, für die man sonst immer einen eigenen Beweis bezüglich der Entscheidbarkeit/Unentscheidbarkeit finden hätte müssen.
 
-Der Beweis von \ref{satzvonrice} verwendet wieder die Reduktion auf das Halteproblem.
+Der Beweis von \ref{satzvonricetheorem} verwendet wieder die Reduktion auf das Halteproblem.
 
 \begin{proof}
 
@@ -376,15 +376,21 @@ Wie verhält sich $P'$? Hält der Java-Simulator, dann berechnet $P'$ die Funkti
 
 Falls $P_S$ als Ergebnis zurückliefert, dass $P'$ in $L(S)$ liegt, dann muss das Programm $P'$ in die zweite Zeile gelangt sein und $f$ berechnen, da er andernfalls in Zeile 1 in einer Endlosschleife wäre und $u \notin S$ berechnen würde. Das bedeutet wiederum, dass das Programm $P$ unter Eingabe $E$ gehalten haben muss. Wir stellen fest:
 \begin{equation*}
-P' \in L(S) \Leftrightarrow P' \ \text{berechnet} \ f \in S \Leftrightarrow (P, E) \in H
+P' \in L(S) \Leftrightarrow P' = f(P, E) \ \text{berechnet} \ f \in S \Leftrightarrow (P, E) \in H
 \end{equation*}
 
 Falls $P'$ nicht in $L(S)$ liegt, dann erreichte $P'$ auch nicht Zeile 2 und $P$ hält nicht auf $E$:
 \begin{equation*}
-P' \notin L(S) \Leftrightarrow P' \ \text{berechnet} \ u \notin S \Leftrightarrow (P, E) \in \overline{H}
+P' \notin L(S) \Leftrightarrow P' = f(P, E) \ \text{berechnet} \ u \notin S \Leftrightarrow (P, E) \in \overline{H}
 \end{equation*}
 
+$f(P, E)$ bedeutet hier, dass das Halteproblem $(P, E)$ in ein Computerprogram $P'$ transformiert wird. Mit anderen Worten: $P'$ wird aus $(P, E)$ berechnet.
+
+Damit ist für Fall 1 gezeigt, dass wir das Halteproblem gelöst hätten und daher $L(S)$ nicht entscheidbar ist.
+
 \subsubsection{Fall 2: $u \in S$}
+
+Das Programm für Fall 2 ist sehr ähnlich, allerdings mit dem unterschied, dass wir dieses Mal eine Funktion $f \notin S$ wählen. Dies ist erlaubt, da $S \ne \mathcal{R}$ gilt. Außerdem ist die Reduktion nicht genau gleich wie im Fall 1, wie wir gleich sehen werden.
 
 \begin{algorithm}
 \caption{Programm $P'$ für Fall 2 $u \in S$}
@@ -397,7 +403,18 @@ P' \notin L(S) \Leftrightarrow P' \ \text{berechnet} \ u \notin S \Leftrightarro
 \end{algorithmic}
 \end{algorithm}
 
-hier steht noch mehr text
+Hält $P$ auf $E$, dann berechnet $P'$ eine Funktion $f \notin S$. Hält $P$ auf $E$ nicht, dann berechnet $P'$ die überall undefinierte Funktion $u \in S$. Wir stellen fest:
+\begin{align*}
+P' \in L(S) &\Leftrightarrow P' = f(P, E) \ \text{berechnet} \ u \in S \Leftrightarrow (P, E) \in \overline{H} \\
+P' \notin L(S) &\Leftrightarrow P' = f(P, E) \ \text{berechnet} \ f \notin S \Leftrightarrow (P, E) \in H
+\end{align*}
+
+Sofern $(P, E)$ Teil vom Halteproblem sind, dann liegt $P'$ nicht, wie im Fall 1, in $L(S)$, sondern im Komplement davon $\overline{L(S)}$. Dies ist jedoch nicht weiter schlimm, denn wenn das Komplement (nicht) berechenbar ist, dann ist auch die Ursprungsmenge (nicht) berechenbar.
+\begin{equation*}
+\chi_{H}(P, E) = \underbrace{1 - \chi_{L(S)}(P')}_{\text{berechenbar}}
+\end{equation*}
+
+Auch im Fall 2 ist die Sprache $L(S)$ nicht entscheidbar.
 
 \end{proof}
 
@@ -410,15 +427,17 @@ Im Folgenden wollen wir diese Aussage mit mehreren Beispielen für $S$ erläuter
 
 \subsection{Berechnung einer mathematischen Funktion}
 
-TODO
+Im einfachsten Fall besteht $S$ nur aus einer einzigen Funktion $f$. Hier stellt sich die Frage, ob ein bestimmter Programmcode tatsächlich die gewünschte Funktion $f$ berechnet oder nicht. Gäbe es einen solchen Codechecker, so wären beispielsweise viele Unit-Tests überflüssig und viele Bugs in Systemen könnten vermieden werden.
 \begin{align*}
 S &= \{f(x) = x^2 \} &S &= \{ f(x) = e^x \} \\
 S &= \{f(x) = x! \}  &S &= \{ f(x) = 1 \}
 \end{align*}
 
+Leider sagt uns der Satz von Rice, dass dies für jeden möglichen Programmcode nicht realisierbar ist.
+
 \subsection{Eigenschaften von mathematischen Funktionen}
 
-TODO
+Interessanter wird es, wenn die Elemente aus $S$ indirekt beschrieben werden, wie beispielsweise über mathematische Eigenschaften:
 \begin{align*}
 S &= \{ f \ \vert \ f \ \text{ist injektiv} \} \\
 S &= \{ f \ \vert \ f \ \text{ist surjektiv} \} \\
@@ -427,6 +446,8 @@ S &= \{ f \ \vert \ f \ \text{ist eine konstante Funktion} \} \\
 S &= \{ f \ \vert \ f \ \text{ist ein Prädikat} \} \\
 S &= \{ f \ \vert \ f(x) \ \text{ist durch} \ 3 \ \text{teilbar} \} \\
 \end{align*}
+
+Unser Programmcode können wir auf keine dieser (und allen anderen) Eigenschaften überprüfen. Kann unser Programmcode jedes Element der Wertemenge von $f$ zurückgeben? Liefert unser Programm bei unterschiedlichen Eingaben auch unterschiedliche Ausgaben? Liefert unser Programm immer nur Wahr und Falsch zurück? Erfüllt die Ausgabe bestimmte Eigenschaften (z.B. bez. Teilbarkeit)? Alle diese Fragen bleiben unbeantwortet.
 
 \subsection{Halteproblem}
 
@@ -444,16 +465,24 @@ TODO
 
 \subsection{Korrektheit bzw. Äquivalität}
 
-TODO definiere $f$
+Wir könnten auf die Idee kommen zu überprüfen, ob der Programmcode bestimmte Spezifikationen zu $f$ erfüllt oder nicht
 \begin{align*}
-S = {f}
+S = \{f \ \vert \ f \ \text{spezifiziert durch formale Spezifikationen} \}
 \end{align*}
 
-TODO konsequenz
+Oder ob ein gegebener Javacode $J_\mathrm{Code}$ äquivalent ist zu einem anderen Code in der gleichen oder einer anderen Programmiersprache ist, z.B. Prolog-Code $P_\mathrm{Code}$ oder C-Code $C_\mathrm{Code}$.
+
+\begin{align*}
+S &= \{f \ \vert \ J_\mathrm{Code} \ \text{berechnet} \ f \} \\
+S &= \{f \ \vert \ P_\mathrm{Code} \ \text{berechnet} \ f \} \\
+S &= \{f \ \vert \ C_\mathrm{Code} \ \text{berechnet} \ f \}
+\end{align*}
+
+Bei beiden Ideen lässt sich $L(S)$ nicht entscheiden.
 
 \subsection{Berechnung spezieller Funktionen}
 
-Collatz Funktion
+Gäbe es ein kluges Programm, dass die Sprache $L(S)$ entscheidet, so könnte man auch viele ungelöste mathematische Probleme lösen, wie z.b. das Collatz-Problem. Bei diesem Problem stellt sich die Frage, ob die Collatz-Funktion für jedes $n > 0$ mit der Zahlenfolge $4, 2, 1$ terminiert oder ob ein $n$ existiert, bei dem dies nicht passiert.
 \begin{align*}
   f(n)=\begin{cases}
   n/2,  & \text{wenn }n\text{ gerade,}\\
@@ -461,26 +490,23 @@ Collatz Funktion
 \end{cases}
 \end{align*}
 
-TODO
-\begin{align*}
-S = \{ 1 \}
-\end{align*}
+Setzt man $S = \{ 1 \}$ und implementiert die obrige Funktion, so würde uns das kluge Programm das Problem lösen.
+
+% Fibonacci Zahlen
+% \begin{align*}
+% \operatorname{Fibonacci}(n) = n \text{-te Fibonacci Zahl}
+% \end{align*}
+%
+% TODO
+% \begin{align*}
+% S = \{ \operatorname{Fibonacci}(n) \}
+% \end{align*}
 
 
 
-Fibonacci Zahlen
-\begin{align*}
-\operatorname{Fibonacci}(n) = n \text{-te Fibonacci Zahl}
-\end{align*}
+\section{Fazit}
 
-TODO
-\begin{align*}
-S = \{ \operatorname{Fibonacci}(n) \}
-\end{align*}
-
-
-
-
+Der Satz von Rice ist mächtiger, als man zunächst vermuten würde. Er macht uns klar, dass viele interessante Sprachen nicht entscheidbar sind. Der Beweis vom Satz ist ein weiteres Beispiel für ein Reduktionsbeweis, der auf das berühmte Halteproblem zurück geht.
 
 
 
@@ -533,9 +559,9 @@ S = \{ \operatorname{Fibonacci}(n) \}
 % \bibliographystyle{IEEEtran}
 % argument is your BibTeX string definitions and bibliography database(s)
 %
-
-\bibliographystyle{IEEEtran}
-\bibliography{./references}
+%
+% \bibliographystyle{IEEEtran}
+% \bibliography{./references}
 
 
 
