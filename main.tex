@@ -1,0 +1,544 @@
+\documentclass[journal]{IEEEtran}
+\usepackage{blindtext}
+\usepackage{graphicx}
+
+
+% *** CITATION PACKAGES ***
+%
+\usepackage{cite}
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 4.0 (2003-05-27) and later if using hyperref.sty. cite.sty does
+% not currently provide for hyperlinked citations.
+% The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/cite/
+% The documentation is contained in the cite.sty file itself.
+
+
+
+
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf{}
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/graphics/
+% Another good source of documentation is "Using Imported Graphics in
+% LaTeX2e" by Keith Reckdahl which can be found as epslatex.ps or
+% epslatex.pdf at: http://www.ctan.org/tex-archive/info/
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). IEEE frowns on bitmapped formats
+% which can result in "jaggedy"/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment for describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithms/
+% There is also a support site at:
+% http://algorithms.berlios.de/index.html
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithmicx/
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/tools/
+
+
+
+% *** SUBFIGURE PACKAGES ***
+\usepackage[tight,footnotesize]{subfigure}
+% subfigure.sty was written by Steven Douglas Cochran. This package makes it
+% easy to put subfigures in your figures. e.g., "Figure 1a and 1b". For IEEE
+% work, it is a good idea to load it with the tight package option to reduce
+% the amount of white space around the subfigures. subfigure.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at:
+% http://www.ctan.org/tex-archive/obsolete/macros/latex/contrib/subfigure/
+% subfigure.sty has been superceeded by subfig.sty.
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure. The latest version and documentation can be found at:
+% http://www.ctan.org/tex-archive/macros/latex/base/
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/misc/
+% Read the url.sty source comments for usage information. Basically,
+% \url{my_url_here}.
+
+
+
+% *** UTF-8 Characters ***
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{algorithm,algorithmic}
+
+% correct bad hyphenation here
+\hyphenation{}
+
+
+\begin{document}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}[definition]{Satz}
+\newtheorem{corollar}[definition]{Korollar}
+\newtheorem{example}[definition]{Beispiel}
+
+\renewcommand{\proofname}{Beweis}
+
+\title{Satz von Rice: Grundlagen, Beweis und Implikationen}
+
+
+\author{René~Filip$^{\dag}$\thanks{$^{\dag}$DHBW Karlsruhe, TINF13B1, Seminar Theoretische Informatik 2016}}
+
+
+\maketitle
+
+
+\begin{abstract}
+Der Satz von Rice hat in der Informatik weitreichende Konsequenzen, denn er sagt aus, dass es kein allgemeines Computerprogramm gibt, das überprüft, ob der eigene Code eine gewünschte Eigenschaft bezüglich seiner Funktion berechnet oder nicht. Nachdem wir den Satz von Rice mittels Reduktion auf das Halteproblem beweisen, zeigen wir die weitrechenden und zunächst nicht ersichtlichen Konsequenzen. Als Einführung zum Reduktionsbeweis zeigen wir jedoch zunächst, dass selbst die Sprache, die Programmcode in einer polynomiellen Laufzeit beinhaltet, nicht entscheidbar ist und beweisen dies ebenfalls mittels Reduktion auf das Halteproblem.
+\end{abstract}
+
+
+\begin{IEEEkeywords}
+  Satz von Rice, Theoretische Informatik, Entscheidbarkeit, Halteproblem.
+\end{IEEEkeywords}
+
+% \begin{theorem}
+% \begin{proof}
+% \begin{definition}[name]
+
+
+
+
+% Einführung
+% Entscheidbarkeit von O(n)
+% Satz von Rice
+% Konsequenzen
+
+\section{Einführung}
+
+Computer sind heutzutage mächtige Werkzeuge, denn sie können bestimmte Probleme und Aufgaben bereits schneller lösen als das menschliche Gehirn. 1997 schlug der Schachcomputer ``Deep Blue" den Weltmeister ``Garry Kasparov" im berühmten ``Game 6" [TODO]. 19 Jahre später entwickelte Google das erste Computerprogramm ``AlphaGo", das einer der besten Go-Spielern ``Lee Sedol" besiegte [TODO]. Man könnte meinen, dass mit nur genügend Zeit und genug schlauen Entwicklern, jedes Problem von einem Computer gelöst werden könnte. Das Halteproblem zeigt jedoch, dass dies nicht immer der Fall ist. Der \textbf{Satz von Rice} geht dabei sogar noch einen Schritt weiter, denn er erschlägt viele Probleme und Fragestellungen, die für einen Informatiker sehr interessant gewesen wären. Anstatt eine explizite Lösung zu geben, sagt er aus, dass bestimmte Sprachen nicht entscheidbar sind und es daher niemals ein kluges Computerprogramm geben wird, dass jede Eingabe richtig bearbeiten könnte.
+
+Genauer gesagt: Sobald wir überprüfen möchten, ob unser Programmcode eine Eigenschaft bezüglich seiner zu berechnenden Funktion erfüllt oder nicht, können wir darüber keine Aussage treffen. In Kapitel \ref{satzvonrice} werden wir diese Aussage formalisieren und beweisen. Danach zeigen wir die Konsequenzen die aus dem Satz von Rice folgen in Kapitel \ref{konsequenzen}. Bevor wir jedoch den Satz mittels Reduktion beweisen, stellen wir in Kapitel \ref{entscheidbarkeitovonn} noch einen anderen Reduktionsbeweis vor.
+
+\section{Entscheidbarkeit der Sprache $O(n^k)$}
+\label{entscheidbarkeitovonn}
+
+Zunächst beweisen wir, dass man im allgemeinen nicht entscheiden kann, ob Programmcode (z.b. in Java) eine polynomielle Laufzeit besitzt oder nicht.
+
+\begin{definition}[Sprache $P_\text{Java}^k$]
+Seien die Sprachen $P_\text{Java}^1$, $P_\text{Java}^2$, \dots, $P_\text{Java}^k$ wie folgt definiert:
+\begin{align*}
+P_\text{Java}^1 =& \{ P \ \vert \ \text{Java-Programm} \  P \ \text{hat Zeitkomplexit\"at} \subseteq O(n) \} \\
+P_\text{Java}^2 =& \{ P \ \vert \ \text{Java-Programm} \  P \ \text{hat Zeitkomplexit\"at} \subseteq O(n^2) \} \\
+\vdots \\
+P_\text{Java}^k =& \{ P \ \vert \ \text{Java-Programm} \  P \ \text{hat Zeitkomplexit\"at} \subseteq O(n^k) \}
+\end{align*}
+\end{definition}
+
+Das bedeutet, dass die Sprache $P_\text{Java}^1$ alle Javaprogramme beinhaltet, für die dessen Programme eine Laufzeit von $O(n)$ oder besser besitzen. Gleichbedeutendes gilt für andere Werte für $k$.
+
+\begin{theorem}
+  Die Sprachen $P_\text{Java}^1, P_\text{Java}^2, \dotsc, P_\text{Java}^k$ sind nicht entscheidbar.
+\end{theorem}
+
+Wir können nicht entscheiden, ob ein gegebener Programmcode zu einen dieser Sprachen gehört oder nicht. Das heißt, es ist nicht möglich, ein kluges Computerprogramm zu schreiben, das die (polynomielle) Laufzeit eines beliebigen Programmcodes berechnet und ausgibt.
+
+Wir beweisen den Satz mittels Reduktion auf das Halteproblem. Wir nehmen an, dass ein kluges Computerprogramm $P_P$ existiert, welches überprüft, ob ein beliebiges Java-Programm $P'$ die Laufzeit $O(n)$ oder besser besitzt oder nicht. Das heißt, $P_P$ entscheidet die Sprache $P_\text{Java}^1$ für $k = 1$. Dann transformieren wir aus einem Halteproblem $(P, E)$ ein Java-Programm $P' = f(P, E)$, für welches $P_P$ das Halteproblem anhand seiner Ausgabe lösen würde. Würde $P_P$ die Sprache $P_\text{Java}^1$ entscheiden, dann hätten wir auch das Halteproblem $(P, E)$ entschieden. Wir wissen jedoch, dass das Halteproblem nicht entscheidbar ist und daher dann auch nicht die Sprache $P_\text{Java}^1$ entscheidbar.
+
+\begin{proof}
+Gegeben sei ein Schritt-Simulator, der wie folgt funktioniert:
+
+\begin{algorithm}
+\caption{Schritt-Simulator}
+\begin{algorithmic}[1]
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\REQUIRE Programm $P$, Eingabe $E$, Anzahl an Schritte $n$
+ \FOR {$i = 1$ to $n$}
+  \STATE Simuliere Schritt $i$ von $P$ auf $E$
+  \IF {$P$ hält}
+   \STATE Gehe in Endlosschleife
+  \ENDIF
+ \ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+Als Eingabe nimmt er ein Computerprogramm $P$, eine dazu zugehörige Eingabe $E$ und eine Anzahl an Schritten $n$ und simuliert $P$ auf $E$ in diesen $n$ Schritten. Hält $P$ auf $E$ innerhalb den $n$ Schritten, geht der Schritt-Simulator in eine Endlosschleife. Andernfalls ist der Schritt-Simulator genau $n$ Schritte beschäftigt.
+
+Wir können aus einem Halteproblem $(P, E)$ nun das Programm $P' = f(P, E)$ konstruieren und dessen Verhalten analysieren:
+
+\begin{algorithm}
+\caption{Programm $P'$}
+\begin{algorithmic}[1]
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\REQUIRE Eingabe $x$
+\STATE Schritt-Simulator($P$, $E$, $\operatorname{Länge}(x)$)
+\RETURN 1
+\end{algorithmic}
+\end{algorithm}
+
+Zunächst rufen wir den Schritt-Simulator($P$, $E$, $n$) auf und machen die Anzahl der Schritte $n$ abhängig von der Eingabe $x = \operatorname{Länge}(x)$. Bei einer längeren Eingabe sind dann auch die Anzahl an Schritte größer. Falls der Schritt-Simulator terminiert, geben wir $1$ zurück.
+
+Das Verhalten von $P'$ können wir nun leicht beschreiben:
+
+\subsubsection{$P_P$ entscheidet $P' \in P_\text{Java}^1$}
+
+$P'$ besitzt eine Laufzeit von $O(n)$ oder besser. Daraus folgt, dass für kein $n$ (und daher auch $x$) der Schritt-Simulator in eine Endlosschleife gegangen ist, denn sonst wäre die Laufzeit sicher nicht $\subseteq O(n)$. Dies bedeutet jedoch wiederum, dass das Programm $P$ unter der Eingabe $E$ niemals anhält, denn sonst hätten wir irgendwann eine endliche Anzahl an Schritte gefunden, für die $P$ unter $E$ gehalten hätte. Es gilt also:
+\begin{align*}
+P' \in P_\text{Java}^1
+\Leftrightarrow& P' \subseteq O(n) \subseteq O(n^k) \\
+\Leftrightarrow& P' = f(P, E) \ \text{geht f\"ur kein} \  n \ \text{in Endlosschleife} \\
+\Leftrightarrow& (\text{Programm} \ P, \text{Eingabe} \ E) \in \overline{H_\text{Java}}
+\end{align*}
+
+\subsubsection{$P_P$ entscheidet $P' \notin P_\text{Java}^1$}
+
+$P'$ besitzt eine schlechtere Laufzeit als $O(n)$. Da der Schritt-Simulator nur eine schlechtere Laufzeit als $O(n)$ ``erzeugen" kann, wenn er in eine Endlosschleife gerät, muss das Programm $P$ unter Eingabe $E$ in endlich vielen Schritten $n$ ab einer bestimmten Länge von $x$ angehalten haben. Demnach:
+\begin{align*}
+P' \notin P_\text{Java}^1
+\Leftrightarrow& P' \notin O(n) \subseteq O(n^k) \\
+\Leftrightarrow& P' = f(P, E) \ \text{geht f\"ur} \  n \ \text{in Endlosschleife} \\
+\Leftrightarrow& (\text{Programm} \ P, \text{Eingabe} \ E) \in H_\text{Java}
+\end{align*}
+
+Wenn also $P'$ in $P_\text{Java}^1$ liegt, dann hält $P$ nicht auf $E$. Wenn $P'$ nicht in $P_\text{Java}^1$ liegt, dann hält $P$ auf $E$. Das Halteproblem ist jedoch nicht entscheidbar, also ist auch $P_\text{Java}^1$ nicht entscheidbar.
+
+\end{proof}
+
+Der Beweis für andere Programmiersprachen und Laufzeiten läuft äquivalent ab und ist dem aufmerksamen Leser als Übung überlassen.
+
+\section{Satz von Rice}
+\label{satzvonrice}
+
+\begin{definition}[Sprache $L_\text{Java}(S)$]
+\label{defls}
+Sei $\mathcal{R}$ die Menge aller berechenbaren Funktionen und $S$ eine nicht-triviale Teilmenge von $R$. Das heißt, $\emptyset \ne S \subset R$. Dann können wir folgende Sprache $L_\text{Java}(S)$ konstruieren:
+\begin{equation*}
+L_\text{Java}(S) = \{ \text{Javacode} \ \vert \ \text{Programm berechnet Funktion aus} \ S \}
+\end{equation*}
+\end{definition}
+
+Die Definition für andere Programmiersprachen verläuft nach dem gleichen Schema.
+
+Die Menge $S$ beinhaltet also mindestens ein Element (eine Funktion) und ist niemals gleich $\mathcal{R}$. Dabei ist wichtig zu verstehen, dass es sich hier tatsächlich um Funktionen handelt und nicht um die Wertepaare der Funktionen.
+
+\begin{example}
+\label{example1}
+$S$ besteht aus einem Element:
+\begin{equation*}
+  S = \{ f(x) = x^2 \}
+\end{equation*}
+\end{example}
+
+Die Menge $S$ besteht aus einem Element, nämlich der Funktion $f(x) = x^2$. Für $f(x)$ können bei $f\colon \mathbb{R} \to \mathbb{R}$ aber unendlich viele Wertepaare besitzen.
+
+\begin{example}
+\label{example2}
+$S$ besteht aus mehr als einem Element:
+\begin{equation*}
+  S = \{f \ \vert \ f \ \text{ist total}\}
+\end{equation*}
+\end{example}
+
+$S$ darf auch mehrere Funktionen aus $\mathcal{R}$ beinhalten. Dadurch können wir in Kapitel \ref{konsequenzen} interessante Aussagen treffen.
+
+Aus $S$ konstruieren wir die Sprache $L_\text{Java}(S)$. Diese beinhaltet jeden Javacode, dessen Programm irgendeine Funktion aus $S$ berechnet. Im Beispiel \ref{example1} enthält $L_\text{Java}(S)$ jeden möglichen Javacode, der $x^2$ berechnet.
+
+\begin{theorem}[Satz von Rice]
+\label{satzvonrice}
+  Die Sprache $L_\text{Java}(S)$ ist nicht entscheidbar.
+\end{theorem}
+
+Der Satz ist äquivalent für andere Programmiersprachen.
+
+Für kein mögliches $S$ ist also $L_\text{Java}(S)$ entscheidbar. Damit erschlägt der Satz von Rice viele Sprachen, für die man sonst immer einen eigenen Beweis bezüglich der Entscheidbarkeit/Unentscheidbarkeit finden hätte müssen.
+
+Der Beweis von \ref{satzvonrice} verwendet wieder die Reduktion auf das Halteproblem.
+
+\begin{proof}
+
+Wir nehmen an, dass $P_S$ die Sprache $L(S)$ entscheiden kann, also ob ein bestimmter Programmcode $P'$ zu der Sprache $L(S)$ gehört oder nicht. Dann konstuieren wir ein Programmcode $P'$, für das $P_S$ ein Halteproblem $(P, E)$ lösen würde. Das Halteproblem ist jedoch nicht entscheidbar, also kann auch $P_S$ das Halteproblem nicht entscheiden und daher ist die Sprache $L(S)$ ist nicht entscheidbar.
+
+Der Programmcode für $P'$ ist im Vergleich zum oberen Beweis noch einfacher. Eine kleine Schwierigkeit ist jedoch, dass wir eine Fallunterscheidung durchführen müssen. Sei $u$ die überall undefinierte Funktion. $u$ gibt für jede Eingabe, die sie erhält, $\mathrm{undef}$ zurück. Es ist leicht zu sehen, dass $u$ in $\mathcal{R}$ liegt. Nun kann $u$ entweder in $S$ liegen oder nicht. Abhängig vom Fall, können wir dann sehen, wie die Reduktion verläuft.
+
+Desweiteren nehmen wir wieder an, dass wir ein Java-Simulator zur Verfügung haben, der ein Programm $P$ unter der Eingabe $E$ simulieren kann.
+
+\begin{algorithm}
+\caption{Java-Simulator}
+\begin{algorithmic}[1]
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\REQUIRE Programm $P$, Eingabe $E$
+\STATE Simmuliere $P$ auf $E$
+\end{algorithmic}
+\end{algorithm}
+
+Falls das Programm $P$ unter $E$ in eine Endlosschleife gerät, verfängt sich auch der Java-Simulator in einer Endlosschleife.
+
+\subsubsection{Fall 1: $u \notin S$}
+
+Fall 1 entspricht dem Beispiel \ref{example1}, denn dort besteht $S$ nur aus $f$ und nicht auch noch $u$. Wir konstruieren das Programm $P'$:
+
+\begin{algorithm}
+\caption{Programm $P'$ für Fall 1 $u \notin S$}
+\begin{algorithmic}[1]
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\REQUIRE Eingabe $x$
+\STATE Java-Simulator($P$, $E$)
+\STATE Berechne $f$ \textit{// $f \in S$}
+\end{algorithmic}
+\end{algorithm}
+
+$f$ wählen wir so, dass es in $S$ liegt. Dies ist erlaubt, da $S \ne \emptyset$ per Definiton \ref{defls} gilt.
+
+Wie verhält sich $P'$? Hält der Java-Simulator, dann berechnet $P'$ die Funktion $f \in S$. Hält er nicht, dann verfängt sich $P'$ in einer Endlosschleife und berechnet daher $u \notin S$.
+
+Falls $P_S$ als Ergebnis zurückliefert, dass $P'$ in $L(S)$ liegt, dann muss das Programm $P'$ in die zweite Zeile gelangt sein und $f$ berechnen, da er andernfalls in Zeile 1 in einer Endlosschleife wäre und $u \notin S$ berechnen würde. Das bedeutet wiederum, dass das Programm $P$ unter Eingabe $E$ gehalten haben muss. Wir stellen fest:
+\begin{equation*}
+P' \in L(S) \Leftrightarrow P' \ \text{berechnet} \ f \in S \Leftrightarrow (P, E) \in H
+\end{equation*}
+
+Falls $P'$ nicht in $L(S)$ liegt, dann erreichte $P'$ auch nicht Zeile 2 und $P$ hält nicht auf $E$:
+\begin{equation*}
+P' \notin L(S) \Leftrightarrow P' \ \text{berechnet} \ u \notin S \Leftrightarrow (P, E) \in \overline{H}
+\end{equation*}
+
+\subsubsection{Fall 2: $u \in S$}
+
+\begin{algorithm}
+\caption{Programm $P'$ für Fall 2 $u \in S$}
+\begin{algorithmic}[1]
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\REQUIRE Programm $P$, Eingabe $E$, Anzahl an Schritte $n$
+\STATE Java-Simulator($P$, $E$)
+\STATE Berechne $f$ \textit{// $f \notin S$}
+\end{algorithmic}
+\end{algorithm}
+
+hier steht noch mehr text
+
+\end{proof}
+
+\section{Konsequenzen}
+\label{konsequenzen}
+
+Die Konsequenzen von Satz von Rice sind weitreichender als man zunächst vermuten würde. Allgemein lässt sich nämlich sagen, dass sobald ein Programmcode eine bestimmte Eigenschaft bezüglich einer (mathematischen) Funktion erfüllt (d.h. nicht von der Syntax o.ä. abhängig ist) und ein anderer Programmcode diese Eigenschaft nicht erfüllt, dann lässt sich im allgemeinen keine Aussage dazu treffen, welcher Programmcode nun welche Eigenschaft (nicht) erfüllt.
+
+Im Folgenden wollen wir diese Aussage mit mehreren Beispielen für $S$ erläutern:
+
+\subsection{Berechnung einer mathematischen Funktion}
+
+TODO
+\begin{align*}
+S &= \{f(x) = x^2 \} &S &= \{ f(x) = e^x \} \\
+S &= \{f(x) = x! \}  &S &= \{ f(x) = 1 \}
+\end{align*}
+
+\subsection{Eigenschaften von mathematischen Funktionen}
+
+TODO
+\begin{align*}
+S &= \{ f \ \vert \ f \ \text{ist injektiv} \} \\
+S &= \{ f \ \vert \ f \ \text{ist surjektiv} \} \\
+S &= \{ f \ \vert \ f \ \text{ist bijektiv} \} \\
+S &= \{ f \ \vert \ f \ \text{ist eine konstante Funktion} \} \\
+S &= \{ f \ \vert \ f \ \text{ist ein Prädikat} \} \\
+S &= \{ f \ \vert \ f(x) \ \text{ist durch} \ 3 \ \text{teilbar} \} \\
+\end{align*}
+
+\subsection{Halteproblem}
+
+TODO
+\begin{align*}
+S = \{ f \ \vert \ f \ \text{ist definiert bei Eingabe} \ E \}
+\end{align*}
+
+TODO
+\begin{align*}
+S = \{ f \ \vert \ f \ \text{ist total} \}
+\end{align*}
+
+TODO
+
+\subsection{Korrektheit bzw. Äquivalität}
+
+TODO definiere $f$
+\begin{align*}
+S = {f}
+\end{align*}
+
+TODO konsequenz
+
+\subsection{Berechnung spezieller Funktionen}
+
+Collatz Funktion
+\begin{align*}
+  f(n)=\begin{cases}
+  n/2,  & \text{wenn }n\text{ gerade,}\\
+  3n+1, & \text{wenn }n\text{ ungerade.}
+\end{cases}
+\end{align*}
+
+TODO
+\begin{align*}
+S = \{ 1 \}
+\end{align*}
+
+
+
+Fibonacci Zahlen
+\begin{align*}
+\operatorname{Fibonacci}(n) = n \text{-te Fibonacci Zahl}
+\end{align*}
+
+TODO
+\begin{align*}
+S = \{ \operatorname{Fibonacci}(n) \}
+\end{align*}
+
+
+
+
+
+
+
+
+% if have a single appendix:
+%\appendix[Proof of the Zonklar Equations]
+% or
+%\appendix  % for no appendix heading
+% do not use \section anymore after \appendix, only \section*
+% is possibly needed
+
+% use appendices with more than one appendix
+% then use \section to start each appendix
+% you must declare a \section before using any
+% \subsection or using \label (\appendices by itself
+% starts a section numbered zero.)
+%
+
+
+% \appendices{}
+% \section{Proof of the First Zonklar Equation}
+% use section* for acknowledgement
+% \section*{Acknowledgment}
+% The authors would like to thank\ldots
+
+
+% Can use something like this to put references on a page
+% by themselves when using endfloat and the captionsoff option.
+\ifCLASSOPTIONcaptionsoff{}
+  \newpage
+\fi
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+% \bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+%
+
+\bibliographystyle{IEEEtran}
+\bibliography{./references}
+
+
+
+
+% that's all folks
+\end{document}
