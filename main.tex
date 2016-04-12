@@ -355,7 +355,7 @@ Desweiteren nehmen wir wieder an, dass wir ein Java-Simulator zur Verfügung hab
 
 Falls das Programm $P$ unter $E$ in eine Endlosschleife gerät, verfängt sich auch der Java-Simulator in einer Endlosschleife.
 
-\subsubsection{Fall 1: $u \notin S$}
+\subsubsection{Fall 1 $u \notin S$}
 
 Fall 1 entspricht dem Beispiel \ref{example1}, denn dort besteht $S$ nur aus $f$ und nicht auch noch $u$. Wir konstruieren das Programm $P'$:
 
@@ -388,7 +388,7 @@ $f(P, E)$ bedeutet hier, dass das Halteproblem $(P, E)$ in ein Computerprogram $
 
 Damit ist für Fall 1 gezeigt, dass wir das Halteproblem gelöst hätten und daher $L(S)$ nicht entscheidbar ist.
 
-\subsubsection{Fall 2: $u \in S$}
+\subsubsection{Fall 2 $u \in S$}
 
 Das Programm für Fall 2 ist sehr ähnlich, allerdings mit dem unterschied, dass wir dieses Mal eine Funktion $f \notin S$ wählen. Dies ist erlaubt, da $S \ne \mathcal{R}$ gilt. Außerdem ist die Reduktion nicht genau gleich wie im Fall 1, wie wir gleich sehen werden.
 
@@ -451,17 +451,17 @@ Unser Programmcode können wir auf keine dieser (und allen anderen) Eigenschafte
 
 \subsection{Halteproblem}
 
-TODO
+Man kann $S$ auch so setzen, dass man wieder das Halteproblem als Ausgangsfrage hätte. Entweder für eine bestimmte Eingabe $E$
 \begin{align*}
 S = \{ f \ \vert \ f \ \text{ist definiert bei Eingabe} \ E \}
 \end{align*}
 
-TODO
+Oder für jede mögliche Eingabe
 \begin{align*}
 S = \{ f \ \vert \ f \ \text{ist total} \}
 \end{align*}
 
-TODO
+Während der Beweis im Kapitel \ref{satzvonrice} für ein beliebiges $S$ gilt, wurde hier ein explizites $S$ gesetzt und ist daher nicht mit dem eigentlichen Beweis zu verwechseln.
 
 \subsection{Korrektheit bzw. Äquivalität}
 
@@ -490,7 +490,7 @@ Gäbe es ein kluges Programm, dass die Sprache $L(S)$ entscheidet, so könnte ma
 \end{cases}
 \end{align*}
 
-Setzt man $S = \{ 1 \}$ und implementiert die obrige Funktion, so würde uns das kluge Programm das Problem lösen.
+Setzt man $S = \{ 1 \}$ und implementiert die obrige Funktion mit einer Schleife $n > 1$, so würde uns das kluge Programm das Problem lösen.
 
 % Fibonacci Zahlen
 % \begin{align*}
