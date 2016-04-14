@@ -195,7 +195,7 @@ Der Satz von Rice hat in der Informatik weitreichende Konsequenzen, denn er sagt
 
 \section{Einführung}
 
-Computer sind heutzutage mächtige Werkzeuge, denn sie können bestimmte Probleme und Aufgaben bereits schneller lösen als das menschliche Gehirn. 1997 schlug der Schachcomputer ``Deep Blue" den Weltmeister ``Garry Kasparov" im berühmten ``Game 6" [TODO]. 19 Jahre später entwickelte Google das erste Computerprogramm ``AlphaGo", das einer der besten Go-Spielern ``Lee Sedol" besiegte [TODO]. Man könnte meinen, dass mit nur genügend Zeit und genug schlauen Entwicklern, jedes Problem von einem Computer gelöst werden könnte. Das Halteproblem zeigt jedoch, dass dies nicht immer der Fall ist. Der \textbf{Satz von Rice} geht dabei sogar noch einen Schritt weiter, denn er erschlägt viele Probleme und Fragestellungen, die für einen Informatiker sehr interessant gewesen wären. Anstatt eine explizite Lösung zu geben, sagt er aus, dass bestimmte Sprachen nicht entscheidbar sind und es daher niemals ein kluges Computerprogramm geben wird, dass jede Eingabe richtig bearbeiten könnte.
+Computer sind heutzutage mächtige Werkzeuge, denn sie können bestimmte Probleme und Aufgaben bereits schneller lösen als das menschliche Gehirn. 1997 schlug der Schachcomputer ``Deep Blue" den Weltmeister ``Garry Kasparov" im berühmten ``Game 6"~\cite{ibmdeepblue}. 19 Jahre später entwickelte Google das erste Computerprogramm ``AlphaGo", das einer der besten Go-Spielern ``Lee Sedol" besiegte~\cite{googlealphago}. Man könnte meinen, dass mit nur genügend Zeit und genug schlauen Entwicklern, jedes Problem von einem Computer gelöst werden könnte. Das Halteproblem zeigt jedoch, dass dies nicht immer der Fall ist. Der \textbf{Satz von Rice} geht dabei sogar noch einen Schritt weiter, denn er erschlägt viele Probleme und Fragestellungen, die für einen Informatiker sehr interessant gewesen wären. Anstatt eine explizite Lösung zu geben, sagt er aus, dass bestimmte Sprachen nicht entscheidbar sind und es daher niemals ein kluges Computerprogramm geben wird, dass jede Eingabe richtig bearbeiten könnte.
 
 Genauer gesagt: Sobald wir überprüfen möchten, ob unser Programmcode eine Eigenschaft bezüglich seiner zu berechnenden Funktion erfüllt oder nicht, können wir darüber keine Aussage treffen. In Kapitel \ref{satzvonrice} werden wir diese Aussage formalisieren und beweisen. Danach zeigen wir die Konsequenzen die aus dem Satz von Rice folgen in Kapitel \ref{konsequenzen}. Bevor wir jedoch den Satz mittels Reduktion beweisen, stellen wir in Kapitel \ref{entscheidbarkeitovonn} noch einen anderen Reduktionsbeweis vor.
 
@@ -222,7 +222,7 @@ Das bedeutet, dass die Sprache $P_\text{Java}^1$ alle Javaprogramme beinhaltet, 
 
 Wir können nicht entscheiden, ob ein gegebener Programmcode zu einen dieser Sprachen gehört oder nicht. Das heißt, es ist nicht möglich, ein kluges Computerprogramm zu schreiben, das die (polynomielle) Laufzeit eines beliebigen Programmcodes berechnet und ausgibt.
 
-Wir beweisen den Satz mittels Reduktion auf das Halteproblem. Wir nehmen an, dass ein kluges Computerprogramm $P_P$ existiert, welches überprüft, ob ein beliebiges Java-Programm $P'$ die Laufzeit $O(n)$ oder besser besitzt oder nicht. Das heißt, $P_P$ entscheidet die Sprache $P_\text{Java}^1$ für $k = 1$. Dann transformieren wir aus einem Halteproblem $(P, E)$ ein Java-Programm $P' = f(P, E)$, für welches $P_P$ das Halteproblem anhand seiner Ausgabe lösen würde. Würde $P_P$ die Sprache $P_\text{Java}^1$ entscheiden, dann hätten wir auch das Halteproblem $(P, E)$ entschieden. Wir wissen jedoch, dass das Halteproblem nicht entscheidbar ist und daher dann auch nicht die Sprache $P_\text{Java}^1$ entscheidbar.
+Wir beweisen den Satz mittels Reduktion auf das Halteproblem. Wir nehmen an, dass ein kluges Computerprogramm $P_P$ existiert, welches überprüft, ob ein beliebiges Java-Programm $P'$ die Laufzeit $O(n)$ oder besser besitzt oder nicht. Das heißt, $P_P$ entscheidet die Sprache $P_\text{Java}^1$ für $k = 1$. Dann transformieren wir aus einem Halteproblem $(P, E)$ ein Java-Programm $P' = f(P, E)$, für welches $P_P$ das Halteproblem anhand seiner Ausgabe lösen würde. Würde $P_P$ die Sprache $P_\text{Java}^1$ entscheiden, dann hätten wir auch das Halteproblem $(P, E)$ entschieden. Wir wissen jedoch, dass das Halteproblem nicht entscheidbar ist und daher ist dann auch nicht die Sprache $P_\text{Java}^1$ entscheidbar.
 
 \begin{proof}
 Gegeben sei ein Schritt-Simulator, der wie folgt funktioniert:
@@ -281,7 +281,7 @@ P' \notin P_\text{Java}^1
 \Leftrightarrow& (\text{Programm} \ P, \text{Eingabe} \ E) \in H_\text{Java}
 \end{align*}
 
-Wenn also $P'$ in $P_\text{Java}^1$ liegt, dann hält $P$ nicht auf $E$. Wenn $P'$ nicht in $P_\text{Java}^1$ liegt, dann hält $P$ auf $E$. Das Halteproblem ist jedoch nicht entscheidbar, also ist auch $P_\text{Java}^1$ nicht entscheidbar.
+Wenn also $P'$ in $P_\text{Java}^1$ liegt, dann hält $P$ nicht auf $E$. Wenn $P'$ nicht in $P_\text{Java}^1$ liegt, dann hält $P$ auf $E$. Das Halteproblem ist jedoch nicht entscheidbar, also ist auch $P_\text{Java}^1$ nicht entscheidbar~\cite{entscheidbarkeitovonn}.
 
 \end{proof}
 
@@ -289,6 +289,8 @@ Der Beweis für andere Programmiersprachen und Laufzeiten läuft äquivalent ab 
 
 \section{Satz von Rice}
 \label{satzvonrice}
+
+TODO
 
 \begin{definition}[Sprache $L_\text{Java}(S)$]
 \label{defls}
@@ -331,15 +333,15 @@ Aus $S$ konstruieren wir die Sprache $L_\text{Java}(S)$. Diese beinhaltet jeden 
 
 Der Satz ist äquivalent für andere Programmiersprachen.
 
-Für kein mögliches $S$ ist also $L_\text{Java}(S)$ entscheidbar. Damit erschlägt der Satz von Rice viele Sprachen, für die man sonst immer einen eigenen Beweis bezüglich der Entscheidbarkeit/Unentscheidbarkeit finden hätte müssen.
+Für kein mögliches $S$ ist also $L_\text{Java}(S)$ entscheidbar~\cite{satzvonricebraun}. Damit erschlägt der Satz von Rice viele Sprachen, für die man sonst immer einen eigenen Beweis bezüglich der Entscheidbarkeit/Unentscheidbarkeit finden hätte müssen.
 
 Der Beweis von \ref{satzvonricetheorem} verwendet wieder die Reduktion auf das Halteproblem.
 
 \begin{proof}
 
-Wir nehmen an, dass $P_S$ die Sprache $L(S)$ entscheiden kann, also ob ein bestimmter Programmcode $P'$ zu der Sprache $L(S)$ gehört oder nicht. Dann konstuieren wir ein Programmcode $P'$, für das $P_S$ ein Halteproblem $(P, E)$ lösen würde. Das Halteproblem ist jedoch nicht entscheidbar, also kann auch $P_S$ das Halteproblem nicht entscheiden und daher ist die Sprache $L(S)$ ist nicht entscheidbar.
+Wir nehmen an, dass $P_S$ die Sprache $L(S)$ entscheiden kann, also uns sagt, ob ein bestimmter Programmcode $P'$ zu der Sprache $L(S)$ gehört oder nicht. Dann konstuieren wir ein Programmcode $P'$, für das $P_S$ ein Halteproblem $(P, E)$ lösen würde. Das Halteproblem ist jedoch nicht entscheidbar, also kann auch $P_S$ das Halteproblem nicht entscheiden. Demnach ist die Sprache $L(S)$ nicht entscheidbar.
 
-Der Programmcode für $P'$ ist im Vergleich zum oberen Beweis noch einfacher. Eine kleine Schwierigkeit ist jedoch, dass wir eine Fallunterscheidung durchführen müssen. Sei $u$ die überall undefinierte Funktion. $u$ gibt für jede Eingabe, die sie erhält, $\mathrm{undef}$ zurück. Es ist leicht zu sehen, dass $u$ in $\mathcal{R}$ liegt. Nun kann $u$ entweder in $S$ liegen oder nicht. Abhängig vom Fall, können wir dann sehen, wie die Reduktion verläuft.
+Der Programmcode für $P'$ ist im Vergleich zum oberen Beweis noch einfacher. Eine kleine Schwierigkeit ist jedoch, dass wir eine Fallunterscheidung durchführen müssen. Sei $u$ die überall undefinierte Funktion. $u$ gibt für jede erhaltende Eingabe $\mathrm{undef}$ zurück. Es ist leicht zu sehen, dass $u$ in $\mathcal{R}$ liegt. Nun kann $u$ entweder in $S$ liegen oder nicht. Abhängig vom Fall, können wir dann sehen, wie die Reduktion verläuft.
 
 Desweiteren nehmen wir wieder an, dass wir ein Java-Simulator zur Verfügung haben, der ein Programm $P$ unter der Eingabe $E$ simulieren kann.
 
@@ -370,7 +372,7 @@ Fall 1 entspricht dem Beispiel \ref{example1}, denn dort besteht $S$ nur aus $f$
 \end{algorithmic}
 \end{algorithm}
 
-$f$ wählen wir so, dass es in $S$ liegt. Dies ist erlaubt, da $S \ne \emptyset$ per Definiton \ref{defls} gilt.
+$f$ wählen wir als Element von $S$. Dies ist erlaubt, da $S \ne \emptyset$ per Definiton \ref{defls} gilt.
 
 Wie verhält sich $P'$? Hält der Java-Simulator, dann berechnet $P'$ die Funktion $f \in S$. Hält er nicht, dann verfängt sich $P'$ in einer Endlosschleife und berechnet daher $u \notin S$.
 
@@ -386,7 +388,7 @@ P' \notin L(S) \Leftrightarrow P' = f(P, E) \ \text{berechnet} \ u \notin S \Lef
 
 $f(P, E)$ bedeutet hier, dass das Halteproblem $(P, E)$ in ein Computerprogram $P'$ transformiert wird. Mit anderen Worten: $P'$ wird aus $(P, E)$ berechnet.
 
-Damit ist für Fall 1 gezeigt, dass wir das Halteproblem gelöst hätten und daher $L(S)$ nicht entscheidbar ist.
+Damit ist für Fall 1 gezeigt, dass wir das Halteproblem gelöst hätten und daher $L(S)$ nicht entscheidbar ist~\cite{satzvonricebeweis}.
 
 \subsubsection{Fall 2 $u \in S$}
 
@@ -414,7 +416,7 @@ Sofern $(P, E)$ Teil vom Halteproblem sind, dann liegt $P'$ nicht, wie im Fall 1
 \chi_{H}(P, E) = \underbrace{1 - \chi_{L(S)}(P')}_{\text{berechenbar}}
 \end{equation*}
 
-Auch im Fall 2 ist die Sprache $L(S)$ nicht entscheidbar.
+Auch im Fall 2 ist die Sprache $L(S)$ nicht entscheidbar~\cite{satzvonricebeweis}.
 
 \end{proof}
 
@@ -423,7 +425,7 @@ Auch im Fall 2 ist die Sprache $L(S)$ nicht entscheidbar.
 
 Die Konsequenzen von Satz von Rice sind weitreichender als man zunächst vermuten würde. Allgemein lässt sich nämlich sagen, dass sobald ein Programmcode eine bestimmte Eigenschaft bezüglich einer (mathematischen) Funktion erfüllt (d.h. nicht von der Syntax o.ä. abhängig ist) und ein anderer Programmcode diese Eigenschaft nicht erfüllt, dann lässt sich im allgemeinen keine Aussage dazu treffen, welcher Programmcode nun welche Eigenschaft (nicht) erfüllt.
 
-Im Folgenden wollen wir diese Aussage mit mehreren Beispielen für $S$ erläutern:
+Im Folgenden wollen wir diese Aussage mit mehreren Beispielen für $S$ erläutern~\cite{weiterebeispiele}:
 
 \subsection{Berechnung einer mathematischen Funktion}
 
@@ -560,8 +562,8 @@ Der Satz von Rice ist mächtiger, als man zunächst vermuten würde. Er macht un
 % argument is your BibTeX string definitions and bibliography database(s)
 %
 %
-% \bibliographystyle{IEEEtran}
-% \bibliography{./references}
+\bibliographystyle{IEEEtran}
+\bibliography{./references}
 
 
 
