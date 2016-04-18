@@ -257,7 +257,7 @@ Wir können aus einem Halteproblem $(P, E)$ nun das Programm $P' = f(P, E)$ kons
 \end{algorithmic}
 \end{algorithm}
 
-Zunächst rufen wir den Schritt-Simulator($P$, $E$, $n$) auf und machen die Anzahl der Schritte $n$ abhängig von der Eingabe $x = \operatorname{L\ddot{a}nge}(x)$. Bei einer längeren Eingabe sind dann auch die Anzahl an Schritte größer. Falls der Schritt-Simulator terminiert, geben wir $1$ zurück.
+Zunächst rufen wir den Schritt-Simulator($P$, $E$, $n$) auf und machen die Anzahl der Schritte $n$ abhängig von der Eingabe $x$ mit $n = \operatorname{L\ddot{a}nge}(x)$. Bei einer längeren Eingabe sind dann auch die Anzahl an Schritte größer. Falls der Schritt-Simulator terminiert, geben wir $1$ zurück.
 
 Das Verhalten von $P'$ können wir nun leicht beschreiben:
 
@@ -290,7 +290,7 @@ Der Beweis für andere Programmiersprachen und Laufzeiten läuft äquivalent ab 
 \section{Satz von Rice}
 \label{satzvonrice}
 
-TODO
+Wir definieren zunächst die Sprache $L(S)$ auf die sich der Satz von Rice bezieht. Je nachdem, wie wir $S$ später belegen, lässt sich der Satz von Rice auf sehr unterschiedliche Probleme anwenden.
 
 \begin{definition}[Sprache $L_\text{Java}(S)$]
 \label{defls}
@@ -345,7 +345,7 @@ Der Programmcode für $P'$ ist im Vergleich zum oberen Beweis noch einfacher. Ei
 
 Desweiteren nehmen wir wieder an, dass wir ein Java-Simulator zur Verfügung haben, der ein Programm $P$ unter der Eingabe $E$ simulieren kann.
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{Java-Simulator}
 \begin{algorithmic}[1]
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
@@ -361,7 +361,7 @@ Falls das Programm $P$ unter $E$ in eine Endlosschleife gerät, verfängt sich a
 
 Fall 1 entspricht dem Beispiel \ref{example1}, denn dort besteht $S$ nur aus $f$ und nicht auch noch $u$. Wir konstruieren das Programm $P'$:
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{Programm $P'$ für Fall 1 $u \notin S$}
 \begin{algorithmic}[1]
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
@@ -508,7 +508,7 @@ Setzt man $S = \{ 1 \}$ und implementiert die obrige Funktion mit einer Schleife
 
 \section{Fazit}
 
-Der Satz von Rice ist mächtiger, als man zunächst vermuten würde. Er macht uns klar, dass viele interessante Sprachen nicht entscheidbar sind. Der Beweis vom Satz ist ein weiteres Beispiel für ein Reduktionsbeweis, der auf das berühmte Halteproblem zurück geht.
+Der Satz von Rice ist mächtiger, als man zunächst vermuten würde. Er bezieht sich auf die Sprache $L(S)$, die abhängig von $S$ ist. Je nachdem, wie $S$ gewählt wird, können wir interessante Fragestellungen erstellen. Er macht uns jedoch klar, dass diese interessanten Sprachen nicht entscheidbar sind. Der Beweis vom Satz ist ein weiteres Beispiel für ein Reduktionsbeweis, der auf das berühmte Halteproblem zurück geht.
 
 
 
